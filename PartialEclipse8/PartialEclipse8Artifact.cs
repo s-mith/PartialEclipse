@@ -33,19 +33,14 @@ public class PartialEclipse8Artifact
     public static Sprite CreateSprite(byte[] resourceBytes, Color fallbackColor)
     {
         // Create a temporary texture, then load the texture onto it.
+        // load icon.png as the sprite for the artifact
+        var icon = Resources.Load("icon") as Texture2D;
         var tex = new Texture2D(32, 32, TextureFormat.RGBA32, false);
         try
         {
-            if (resourceBytes == null)
-            {
-                FillTexture(tex, fallbackColor);
-            }
-            else
-            {
-                tex.LoadImage(resourceBytes, false);
-                tex.Apply();
-                CleanAlpha(tex);
-            }
+            // use icon.png in the root of the project as the icon for the artifact
+            tex.LoadImage(icon.EncodeToPNG());
+            CleanAlpha(tex);
         }
         catch (Exception e)
         {
